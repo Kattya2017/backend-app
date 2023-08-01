@@ -1,6 +1,8 @@
 
 const Usuario = require('../models/usuario');
 const Role = require('../models/role');
+const Abecedario = require('../models/abecedario');
+const Palabra = require('../models/palabra');
 
 const esRoleValido = async (rol = '') => {
     const existeRol = await Role.findOne({ rol });
@@ -35,10 +37,36 @@ const coleccionesPermitidas = (coleccion='', colecciones=[]) => {
     return true;
 }
 
+const validarAbecedario = async (abecedario = '') =>{
+const existeAbecedario = await Abecedario.findOne({
+    where:{
+        abecedario : `${abecedario.toUpperCase()}`,
+    },
+});
+if (existeAbecedario) {
+    throw new Error(`El abecedario ${abecedario} ya esta registrado en la BD`)
+}
+};
+
+
+const validarTitulo = async (titulo = '') =>{
+    const existeTitulo = await Palabra.findOne({
+        where:{
+            titulo : `${titulo.toUpperCase()}`,
+        },
+    });
+    if (existeTitulo) {
+        throw new Error(`El titulo ${titulo} ya esta registrado en la bd`)
+    }
+};
+
+
 module.exports = {
     esRoleValido,
     esUsuarioValido,
     esNombreUsuarioValido,
     esUsuarioValidoUser,
-    coleccionesPermitidas
+    coleccionesPermitidas,
+    validarAbecedario,
+    validarTitulo
 }

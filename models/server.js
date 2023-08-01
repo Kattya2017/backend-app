@@ -12,9 +12,11 @@ class Server{
         this.app = express();
         this.port = process.env.PORT;
         this.paths = {
-            auth: '/api/auth',
+            /*auth: '/api/auth',
             usuario: '/api/usuario',
-            uploads: '/api/uploads'
+            uploads: '/api/uploads'*/
+            abecedario: '/api/abecedario',
+            palabra: '/api/palabra'
         }
         //Connect to socket
         this.httpServer = new http.Server(this.app);
@@ -67,9 +69,11 @@ class Server{
         
     }
     routes(){
-        this.app.use(this.paths.auth, require('../routes/auth'));
+        /* this.app.use(this.paths.auth, require('../routes/auth'));
         this.app.use(this.paths.usuario, require('../routes/usuarios'));
-        this.app.use(this.paths.uploads, require('../routes/uploads'));
+        this.app.use(this.paths.uploads, require('../routes/uploads')); */
+        this.app.use(this.paths.abecedario, require('../routes/abecedario'));
+        this.app.use(this.paths.palabra, require('../routes/palabra'))
     }
     listen(){
         this.httpServer.listen(this.port, ()=>{

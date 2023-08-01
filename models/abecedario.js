@@ -1,15 +1,22 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require('../database/database');
+const Palabra = require("./palabra");
 
 
 class Abecedario extends Model{}
 
 Abecedario.init({
-    nombre:{
+    abecedario:{
         type:DataTypes.CHAR
     },
-    descripcion:{
-        type:DataTypes.CHAR
+    abecedario_shipibo:{
+        type:DataTypes.STRING
+    },
+    titulo:{
+        type:DataTypes.STRING
+    },
+    titulo_shipibo:{
+        type:DataTypes.STRING
     },
     estado:{
         type:DataTypes.TINYINT,
@@ -20,5 +27,17 @@ Abecedario.init({
     timestamps:false,
     tableName:'abecedario'
 })
+
+
+Abecedario.hasMany(Palabra,{
+    as:'FK_PalabraAbecedario',
+    foreignKey:'id_abecedario'
+});
+
+Palabra.belongsTo(Abecedario,{
+    sourcekey:'id',
+    foreignKey:'id_abecedario'
+})
+
 
 module.exports = Abecedario

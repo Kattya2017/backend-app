@@ -4,7 +4,7 @@ const fs = require("fs");
 const cloudinary = require("cloudinary").v2;
 cloudinary.config(process.env.CLOUDINARY_URL);
 const { subirArchivo } = require("../helpers");
-const { Usuario } = require("../models");
+const { Usuario, Palabra } = require("../models");
 
 const cargarArchivos = async (req = request, res = response) => {
   try {
@@ -118,9 +118,10 @@ const mostrarImagen = async (req, res) => {
   return res.sendFile(pathImagenDefault);
 };
 
+
 module.exports = {
   cargarArchivos,
   actualizarImagen,
   mostrarImagen,
-  actualizarImagenCloudinary,
+  actualizarImagenCloudinary
 };

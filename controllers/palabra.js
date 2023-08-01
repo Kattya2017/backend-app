@@ -136,7 +136,7 @@ try {
     msg:`Error: ${error}`
   })
 }
-}
+};
   
 
 const eliminarPalabra = () =>{

@@ -5,9 +5,16 @@ const Abecedario = require("../models/abecedario");
 
 const mostrarAbecedario = async (req = request, res = response) =>{
 try {
+    const {estado} = req.query;
+    const resp = await Abecedario.findAll({
+        where:{
+            estado
+        }
+    })
     res.json({
         ok:true,
-        msg:"Se muestra los datos correctamente"
+        msg:"Se muestra los datos correctamente",
+        resp
     })
 } catch (error) {
     res.status(400).json({

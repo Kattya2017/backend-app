@@ -7,9 +7,11 @@ const { subirArchivo } = require("../helpers/subir-archivo");
 
 const mostrarPalabra = async (req = request, res = response) =>{
 try {
+  const resp = await Palabra.findAll();
     res.json({
         ok:true,
-        msg:"Se muestra los datos correctamente"
+        msg:"Se muestra los datos correctamente",
+        resp
     })
 } catch (error) {
     res.status(400).json({
@@ -40,6 +42,29 @@ const mostrarIdPalabra = async ( req = request, res = response) =>{
         });
     }
 };
+
+const mostrarPalabraAbecedario = async (req = request, res = response)=>{
+  try {
+
+    const {id} = req.params;
+    const resp = await Palabra.findAll({
+      where:{
+        id_abecedario:id
+      }
+    });
+
+    res.json({
+      ok:true,
+      msg:'Se muestra el id del abecedario con exito',
+      resp
+    })
+  } catch (error) {
+    res.status(400).json({
+      ok:false,
+      msg:`Error: ${error}`
+    })
+  }
+}
 
 
 const agregarPalabra = async (req = request, res = response) =>{
@@ -149,5 +174,6 @@ module.exports = {
     agregarPalabra,
     modificarPalabra,
     modificarAudioPalabra,
-    eliminarPalabra
+    eliminarPalabra,
+    mostrarPalabraAbecedario
 };

@@ -3,6 +3,7 @@ const Usuario = require('../models/usuario');
 const Role = require('../models/role');
 const Abecedario = require('../models/abecedario');
 const Palabra = require('../models/palabra');
+const Administrador = require('../models/administrador');
 
 const esRoleValido = async (rol = '') => {
     const existeRol = await Role.findOne({ rol });
@@ -60,6 +61,17 @@ const validarTitulo = async (titulo = '') =>{
     }
 };
 
+const validarUsuarioAdministrador = async (nombre = '') =>{
+    const existeAdministrador = await Administrador.findOne({
+        where:{
+            nombre: `${nombre.toUpperCase()}`,
+        },
+    });
+    if (existeAdministrador) {
+        throw new Error(`El Administrador ${nombre} ya esta registrado en la BD`);
+    }
+};
+
 
 module.exports = {
     esRoleValido,
@@ -68,5 +80,6 @@ module.exports = {
     esUsuarioValidoUser,
     coleccionesPermitidas,
     validarAbecedario,
-    validarTitulo
+    validarTitulo,
+    validarUsuarioAdministrador
 }

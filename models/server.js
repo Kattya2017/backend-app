@@ -16,7 +16,8 @@ class Server{
             usuario: '/api/usuario',
             uploads: '/api/uploads'*/
             abecedario: '/api/abecedario',
-            palabra: '/api/palabra'
+            palabra: '/api/palabra',
+            administrador: '/api/administrador'
         }
         //Connect to socket
         this.httpServer = new http.Server(this.app);
@@ -74,6 +75,7 @@ class Server{
         this.app.use(this.paths.uploads, require('../routes/uploads')); */
         this.app.use(this.paths.abecedario, require('../routes/abecedario'));
         this.app.use(this.paths.palabra, require('../routes/palabra'))
+        this.app.use(this.paths.administrador, require('../routes/administrador'))
     }
     listen(){
         this.httpServer.listen(this.port, ()=>{

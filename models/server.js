@@ -15,6 +15,7 @@ class Server{
             /*auth: '/api/auth',
             usuario: '/api/usuario',
             uploads: '/api/uploads'*/
+            auth: '/api/auth',
             abecedario: '/api/abecedario',
             palabra: '/api/palabra',
             administrador: '/api/administrador'
@@ -73,6 +74,7 @@ class Server{
         /* this.app.use(this.paths.auth, require('../routes/auth'));
         this.app.use(this.paths.usuario, require('../routes/usuarios'));
         this.app.use(this.paths.uploads, require('../routes/uploads')); */
+        this.app.use(this.paths.auth, require('../routes/auth'));
         this.app.use(this.paths.abecedario, require('../routes/abecedario'));
         this.app.use(this.paths.palabra, require('../routes/palabra'))
         this.app.use(this.paths.administrador, require('../routes/administrador'))

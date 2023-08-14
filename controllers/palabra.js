@@ -89,6 +89,37 @@ const mostrarPalabraAbecedario = async (req = request, res = response)=>{
   }
 }
 
+const mostrarAudioPalabra=async(req=request,res=response)=>{
+  try {
+    const { nombre } = req.params;
+    const resp = await Palabra.findOne({
+      where:{
+        audio:nombre
+      }
+    });
+    if (!resp) {
+      const pathImagenDefault = path.join(__dirname, "../assets/no-audio.mp3");
+      return res.sendFile(pathImagenDefault);
+    }
+    if (resp.audio) {
+      const pathImagen = path.join(
+        __dirname,
+        "../uploads",
+        "audios",
+        resp.audio
+      );
+      return res.sendFile(pathImagen);
+    }
+    const pathImagenDefault = path.join(__dirname, "../assets/no-audio.mp3");
+    return res.sendFile(pathImagenDefault);
+  } catch (error) {
+    res.status(400).json({
+      ok:false,
+      msg:`Error: ${error}`
+    })
+  }
+}
+
 
 const agregarPalabra = async (req = request, res = response) =>{
     try {
@@ -194,6 +225,7 @@ const eliminarPalabra = () =>{
 module.exports = {
     mostrarPalabra,
     mostrarIdPalabra,
+    mostrarAudioPalabra,
     agregarPalabra,
     modificarPalabra,
     modificarAudioPalabra,
